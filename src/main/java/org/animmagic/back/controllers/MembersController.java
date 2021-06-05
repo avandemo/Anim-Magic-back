@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +34,13 @@ public class MembersController {
 	
 	@PostMapping("/members")
 	public ResponseEntity<MemberDTO> createMember(@RequestBody MemberDTO member) {
+		this.membersService.createMember(member);
+		return ResponseEntity.status(HttpStatus.CREATED).body(member);
+	}
+	
+	@PutMapping("/members")
+	public ResponseEntity<MemberDTO> updateMember(@RequestBody MemberDTO member) {
+		this.membersService.updateMember(member);
 		return ResponseEntity.status(HttpStatus.OK).body(member);
 	}
 }
