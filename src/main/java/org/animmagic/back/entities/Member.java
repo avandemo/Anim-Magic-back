@@ -21,7 +21,11 @@ public class Member {
 	String login;
 	@Column(name = "total_Points")
 	Integer totalPoints;
+	
 	@OneToMany(mappedBy = "member")
 	List<MemberDotation> dotations;
+	
+	@OneToMany(mappedBy = "id.member")
+	List<MemberTournament> memberTournament;
 
 }

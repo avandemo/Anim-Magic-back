@@ -6,14 +6,13 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import javassist.SerialVersionUID;
 import lombok.Data;
 
 @Data
 @Embeddable
 public class MemberTournamentPK implements Serializable {
 	
-	private static final long SerialVersionUID = -438241814928979208L;
+	private static final long serialVersionUID = -438241814928979208L;
 	
 	@ManyToOne()
 	@JoinColumn(name = "id_tournament")
