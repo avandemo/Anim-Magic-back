@@ -28,9 +28,10 @@ public class MemberTournamentServiceImpl {
 		
 		Member member = memberRepo.getById(memberTournament.getId().getMember().getDci());
 		memberTournament.setMember(member);
+		memberTournament.setPoints(memberTournament.getScore()+3);
 		Tournament tournament = tournamentRepo.getById(memberTournament.getId().getTournament().getIdTournament());
 		memberTournament.setTournament(tournament);
-		
+				
 	}
 	
 	public void createMemberTournament(MemberTournamentDTO memberTournamentDTO) {
@@ -38,6 +39,7 @@ public class MemberTournamentServiceImpl {
 		MemberTournament memberTournament = new MemberTournament();
 		BeanUtils.copyProperties(memberTournamentDTO, memberTournament);
 		copyPropertiesCascade(memberTournament);
+		memberTournament.getMember().setTotalPoints(memberTournament.getMember().getTotalPoints() + memberTournament.getPoints());
 		memberTournamentRepo.save(memberTournament);
 		
 	}
@@ -47,8 +49,11 @@ public class MemberTournamentServiceImpl {
 		Optional<MemberTournament> memberTournamentOptional = this.memberTournamentRepo.findById(memberTournamentDTO.getId());
 		if (memberTournamentOptional.isPresent()) {
 			MemberTournament memberTournament = memberTournamentOptional.get();
+			Integer oldPoints = memberTournament.getPoints();
 			BeanUtils.copyProperties(memberTournamentDTO, memberTournament);
 			copyPropertiesCascade(memberTournament);
+			// Pour l'update, on ajoute la différence de points au member
+			memberTournament.getMember().setTotalPoints(memberTournament.getMember().getTotalPoints() + memberTournamentDTO.getScore() +3 - oldPoints);
 			memberTournamentRepo.save(memberTournament);
 		}
 	}
