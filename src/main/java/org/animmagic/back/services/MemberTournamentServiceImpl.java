@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.animmagic.back.dto.MemberTournamentDTO;
 import org.animmagic.back.entities.Member;
 import org.animmagic.back.entities.MemberTournament;
-import org.animmagic.back.entities.MemberTournamentPK;
 import org.animmagic.back.entities.Tournament;
 import org.animmagic.back.repositories.MemberRepository;
 import org.animmagic.back.repositories.MemberTournamentRepository;
@@ -52,7 +51,7 @@ public class MemberTournamentServiceImpl {
 			Integer oldPoints = memberTournament.getPoints();
 			BeanUtils.copyProperties(memberTournamentDTO, memberTournament);
 			copyPropertiesCascade(memberTournament);
-			// Pour l'update, on ajoute la différence de points au member
+			// for the update, we add the difference of points at member
 			memberTournament.getMember().setTotalPoints(memberTournament.getMember().getTotalPoints() + memberTournamentDTO.getScore() +3 - oldPoints);
 			memberTournamentRepo.save(memberTournament);
 		}
